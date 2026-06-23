@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: payops-copilot-api
+    rootDir: backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.10
+      - key: DATABASE_URL
+        value: sqlite+aiosqlite:///./payops.db
+      - key: FRONTEND_URL
+        value: https://payops-copilot.vercel.app
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.0-flash
